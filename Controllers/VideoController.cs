@@ -19,9 +19,14 @@ namespace myimportantproject.Controllers
         }
 
         // GET: Video/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(string id)
         {
-            return View();
+            if (id == null)
+            {
+                RedirectToAction("Index");
+            }
+            Video video = repository.GetByName(id);
+            return View(video);
         }
 
         // GET: Video/Create
