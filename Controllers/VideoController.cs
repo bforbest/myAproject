@@ -21,9 +21,10 @@ namespace myimportantproject.Controllers
         // GET: Video/Details/5
         public ActionResult Details(string id)
         {
+          
             if (id == null)
             {
-                RedirectToAction("Index");
+               return RedirectToAction("Index");
             }
             Video video = repository.GetByName(id);
             return View(video);

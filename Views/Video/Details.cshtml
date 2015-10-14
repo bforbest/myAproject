@@ -2,8 +2,72 @@
 
 @{
     ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_VideoLayout.cshtml";
 }
+<div class="videotron">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <iframe class="embed-responsive-item" height="400" width="100%" src="https://www.youtube.com/embed/XL9Ri8pO68w" allowfullscreen></iframe>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                        <span class="sr-only">40% Complete (success)</span>
+                    </div>
+                </div>  
+            </div>
+            <div class="col-md-4">
+                <img src="http://placehold.it/350x250/000000" />
+            </div>
+        </div>
+    </div>
+   
+</div>
+<div class="container body-content" >
+    <div class="well-sm">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="active">
+                <a href="#home" role="tab" data-toggle="tab">
+                    <icon class="fa fa-home"></icon> Home
+                </a>
+            </li>
+            <li>
+                <a href="#profile" role="tab" data-toggle="tab">
+                    <i class="fa fa-user"></i> Profile
+                </a>
+            </li>
+            <li>
+                <a href="#messages" role="tab" data-toggle="tab">
+                    <i class="fa fa-envelope"></i> Messages
+                </a>
+            </li>
+            <li>
+                <a href="#settings" role="tab" data-toggle="tab">
+                    <i class="fa fa-cog"></i> Settings
+                </a>
+            </li>
+        </ul>
 
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div class="tab-pane fade active in" id="home">
+                <h2>Home Content Goes Here</h2>
+                <img src="http://lorempixel.com/400/400/cats/1" alt="Cats" />
+            </div>
+            <div class="tab-pane fade" id="profile">
+                <h2>Profile Content Goes Here</h2>
+                <img src="http://lorempixel.com/400/400/cats/2" alt="Cats" />
+            </div>
+            <div class="tab-pane fade" id="messages">
+                <h2>Messages Content Goes Here</h2>
+                <img src="http://lorempixel.com/400/400/cats/3" alt="Cats" />
+            </div>
+            <div class="tab-pane fade" id="settings">
+                <h2>Settings Content Goes Here</h2>
+                <img src="http://lorempixel.com/400/400/cats/4" alt="Cats" />
+            </div>
+        </div>
+    </div>
 <h2>Details</h2>
 
 <div>
@@ -56,3 +120,4 @@
     @Html.ActionLink("Edit", "Edit", new { id = Model.VideoID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+    </div>
