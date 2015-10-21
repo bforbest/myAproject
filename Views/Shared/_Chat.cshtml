@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = "Chat";
+}
+
+
+<div class="well well-sm">
+    <div class="panel panel-success">
+        <div class="panel-heading">Chat Window</div>
+        <div class="panel-body chat-panel" >
+            @DateTime.Now.ToString();
+            <div class="comment" id="discussion">
+
+            </div>
+        </div>
+    </div>
+
+    <div class="cbox">
+        <div class="input-group">
+            <input type="text" id="message" class="form-control" placeholder="Chat with other users">
+            <span class="input-group-btn">
+                <button id="sendmessage" value="Send" class="btn btn-default" type="button">Send!</button>
+            </span>
+            <input type="hidden" id="displayname" />
+        </div><!-- /input-group -->
+    </div>
+    
+</div>
+

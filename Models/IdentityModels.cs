@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using webpagetest.Models;
+using System.Collections.Generic;
 
 namespace myimportantproject.Models
 {
@@ -32,5 +33,6 @@ namespace myimportantproject.Models
         }
         public DbSet<Video> Videos { get; set; }
         public DbSet<Category> Categories { get; set; }
+
     }
 }

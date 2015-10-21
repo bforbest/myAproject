@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Index</h2>
@@ -9,6 +10,15 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+@using (Html.BeginForm())
+{
+    <p>
+        Select Department: @Html.DropDownList("SelectedCategory", "All")
+        <input type="submit" value="Filter" />
+    </p>
+}
+
 <table class="table">
     <tr>
         <th>
@@ -25,6 +35,12 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.ImageUrl)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.thumbsUp)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.thumbsDown)
         </th>
         <th></th>
     </tr>
@@ -45,6 +61,12 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ImageUrl)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.thumbsUp)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.thumbsDown)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.VideoID }) |

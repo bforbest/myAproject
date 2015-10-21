@@ -12,26 +12,17 @@ using webpagetest.Models;
 
 namespace myimportantproject.Controllers
 {
-    public class VideoController : Controller
+    public class VideosController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Video
-        public async Task<ActionResult> Index(int? SelectedCategory)
+        // GET: Videos
+        public async Task<ActionResult> Index()
         {
-            var departments = db.Categories.OrderBy(q => q.Title).ToList();
-            ViewBag.SelectedCategory = new SelectList(departments, "CategoryID", "Title", SelectedCategory);
-            int categoryID = SelectedCategory.GetValueOrDefault();
-
-            IQueryable<Video> videos = db.Videos
-                .Where(c => !SelectedCategory.HasValue || c.CategoryID == categoryID)
-                .OrderBy(d => d.CategoryID)
-                .Include(d => d.Category);
-            var sql = videos.ToString();
-            return View(await videos.ToListAsync());
+            return View(await db.Videos.ToListAsync());
         }
 
-        // GET: Video/Details/5
+        // GET: Videos/Details/5
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
@@ -46,38 +37,30 @@ namespace myimportantproject.Controllers
             return View(video);
         }
 
-        // GET: Video/Create
+        // GET: Videos/Create
         public ActionResult Create()
         {
-            PopulateCategoryDropDownList();
             return View();
         }
 
-        // POST: Video/Create
+        // POST: Videos/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "VideoID,Name,IsEmbed,VideoUrl,Discription,ImageUrl,thumbsUp,thumbsDown,CategoryID")] Video video)
         {
-            try
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
-                {
-                    db.Videos.Add(video);
-                    await db.SaveChangesAsync();
-                    return RedirectToAction("Index");
-                }
+                db.Videos.Add(video);
+                await db.SaveChangesAsync();
+                return RedirectToAction("Index");
             }
-            catch
-            {
-                ModelState.AddModelError("", "Unable to save changes");
-            }
-            PopulateCategoryDropDownList(video.CategoryID);
+
             return View(video);
         }
 
-        // GET: Video/Edit/5
+        // GET: Videos/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -89,16 +72,15 @@ namespace myimportantproject.Controllers
             {
                 return HttpNotFound();
             }
-            PopulateCategoryDropDownList(video.CategoryID);
             return View(video);
         }
 
-        // POST: Video/Edit/5
+        // POST: Videos/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "VideoID,Name,IsEmbed,VideoUrl,Discription,ImageUrl,thumbsUp,thumbsDown, CategoryID")] Video video)
+        public async Task<ActionResult> Edit([Bind(Include = "VideoID,Name,IsEmbed,VideoUrl,Discription,ImageUrl,thumbsUp,thumbsDown,CategoryID")] Video video)
         {
             if (ModelState.IsValid)
             {
@@ -109,7 +91,7 @@ namespace myimportantproject.Controllers
             return View(video);
         }
 
-        // GET: Video/Delete/5
+        // GET: Videos/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,7 +106,7 @@ namespace myimportantproject.Controllers
             return View(video);
         }
 
-        // POST: Video/Delete/5
+        // POST: Videos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
@@ -142,15 +124,6 @@ namespace myimportantproject.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-
-        private void PopulateCategoryDropDownList(object selectedCategory = null)
-        {
-            var categorysQuery = from d in db.Categories
-                                   orderby d.Title
-                                   select d;
-            ViewBag.CategoryID = new SelectList(categorysQuery, "CategoryID", "Title", selectedCategory);
         }
     }
 }

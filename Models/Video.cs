@@ -20,8 +20,10 @@ namespace webpagetest.Models
         public string Discription { get; set; }
         [StringLength(300)]
         public string ImageUrl { get; set; }
-
-        public virtual List<Category> Categories { get; set; }
+        public int thumbsUp { get; set; }
+        public int thumbsDown { get;set; }
+        public int CategoryID { get; set; }
+        public virtual Category Category { get; set; }
 
     }
 }

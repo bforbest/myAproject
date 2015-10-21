@@ -4,16 +4,17 @@ namespace myimportantproject.Migrations
     using Microsoft.AspNet.Identity.EntityFramework;
     using Models;
     using System;
+    using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
+    using webpagetest.Models;
 
     internal sealed class Configuration : DbMigrationsConfiguration<myimportantproject.Models.ApplicationDbContext>
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
-            ContextKey = "myimportantproject.Models.ApplicationDbContext";
+            AutomaticMigrationsEnabled = false;
         }
 
         protected override void Seed(myimportantproject.Models.ApplicationDbContext context)
@@ -28,6 +29,9 @@ namespace myimportantproject.Migrations
                 context.SaveChanges();
 
             }
+
+
+
             //  This method will be called after migrating to the latest version.
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 

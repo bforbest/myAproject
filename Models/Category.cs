@@ -12,7 +12,7 @@ namespace webpagetest.Models
         [Required()]
         [StringLength(100, MinimumLength = 2)]
         public string Title { get; set; }
-        public virtual List<Video> videos { get; set; }
+        public virtual ICollection<Video> videos { get; set; }
 
     }
 }
