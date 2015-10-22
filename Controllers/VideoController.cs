@@ -9,13 +9,14 @@ using System.Web;
 using System.Web.Mvc;
 using myimportantproject.Models;
 using webpagetest.Models;
+using webpagetest.Models.Repository;
 
 namespace myimportantproject.Controllers
 {
     public class VideoController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-
+        VideoRepository repository = new VideoRepository();
         // GET: Video
         public async Task<ActionResult> Index(int? SelectedCategory)
         {
@@ -151,6 +152,24 @@ namespace myimportantproject.Controllers
                                    orderby d.Title
                                    select d;
             ViewBag.CategoryID = new SelectList(categorysQuery, "CategoryID", "Title", selectedCategory);
+        }
+
+        //[HttpPost]
+        [HttpPost]
+        public int thumbsUp(string id)
+        {
+            repository.thumbsUp(id);
+            repository.SaveChanges();
+            int count = repository.thumbsUpCount(id);
+            return (count);
+        }
+        [HttpPost]
+        public int thumbsDown(string id)
+        {
+            repository.thumbsDown(id);
+            repository.SaveChanges();
+            int count = repository.thumbsDownCount(id);
+            return (count);
         }
     }
 }
