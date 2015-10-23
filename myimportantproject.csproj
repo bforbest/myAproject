@@ -188,11 +188,16 @@
     <Compile Include="Migrations\201510211953459_initialCreate.Designer.cs">
       <DependentUpon>201510211953459_initialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201510221817559_playlist.cs" />
+    <Compile Include="Migrations\201510221817559_playlist.Designer.cs">
+      <DependentUpon>201510221817559_playlist.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Playlist.cs" />
     <Compile Include="Models\Repository\CategoryRepository.cs" />
     <Compile Include="Models\Repository\Repository.cs" />
     <Compile Include="Models\Repository\VideoRepository.cs" />
@@ -275,6 +280,8 @@
     <Content Include="Views\Video\Details.cshtml" />
     <Content Include="Views\Video\Edit.cshtml" />
     <Content Include="Views\Video\Index.cshtml" />
+    <Content Include="Views\Shared\_loginModal.cshtml" />
+    <Content Include="Views\Shared\_RegisterModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -290,6 +297,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201510211953459_initialCreate.resx">
       <DependentUpon>201510211953459_initialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510221817559_playlist.resx">
+      <DependentUpon>201510221817559_playlist.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

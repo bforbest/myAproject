@@ -1,5 +1,5 @@
 ﻿body {
-    padding-top: 50px;
+    padding-top: 60px;
     padding-bottom: 20px;
 }
 
@@ -115,6 +115,10 @@ a.flex-next {
     vertical-align: middle;
         display: table-cell;
 }
+.flexslider {
+    background: #eff0ee !important;
+    border: 3px solid #eff0ee !important;
+}
 /*chat style*/
 .chat-panel{
         height: 248px;
@@ -129,4 +133,12 @@ a.flex-next {
     float: left;
     position: relative;
     padding-right: 10px;
+}
+
+.navbar-brand {
+    padding: 0px 15px;
+}
+#registerLogin{
+  z-index: 1500;
+
 }
