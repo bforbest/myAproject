@@ -17,23 +17,28 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="@Url.Action("Index","Home")">HOME <span class="sr-only">(current)</span></a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">WATCH NOW <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Watch all channels</a></li>
-                            <li><a href="#">Watch by category</a></li>
-                            <li><a href="#">Watch top channels</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">Watch your favorite</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">about channels</a></li>
-                        </ul>
+                    <li><a href="@Url.Action("Index","Home")">HOME <span class="sr-only">(current)</span></a></li>
+                    <li>
+                        <!-- Split button -->
+                        <div class="btn-group navbar-btn btn-group-lg">
+                            <a href="@Url.Action("index","video")" type="button" class="btn btn-success">WATCH NOW</a>
+                            <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Watch all channels</a></li>
+                                <li><a href="#">Watch by category</a></li>
+                                <li><a href="#">Watch popular tv</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">Playlists</a></li>
+                            </ul>
+                        </div>
                     </li>
+                    <li>@Html.ActionLink("Video", "Details", "Video", new { id = "3" }, null)</li>
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
-                    <li>@Html.ActionLink("Video", "Details", "Video", new { id = "3" }, null)</li>
                     @Html.Partial("_LoginPartial")
                 </ul>
             </div><!-- /.navbar-collapse -->

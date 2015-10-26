@@ -16,17 +16,16 @@
 }
 else
 {
-    <ul class="nav navbar-nav navbar-right">
   <!--      <li>Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>-->
         <li>
-            <button type="button" class="btn btn-success btn-group-sm navbar-btn" data-toggle="modal" data-target="#registerRegister">
-                Register
-            </button>
-        </li>
-        <li><button type="button" class="btn btn-success btn-group-sm navbar-btn" data-toggle="modal" data-target="#registerLogin">
+            <div class="btn-group" role="group" aria-label="login register">
+                <button type="button" class="btn btn-success btn-group-sm navbar-btn" data-toggle="modal" data-target="#registerRegister">
+                    Register
+                </button>
+            <button type="button" class="btn btn-success btn-group-sm navbar-btn" data-toggle="modal" data-target="#registerLogin">
             Login
-        </button></li>
-    </ul>
+        </button></div>
+                </li>
 }
 
 

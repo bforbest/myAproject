@@ -46,6 +46,16 @@ namespace myimportantproject.Controllers
             }
             return View(video);
         }
+        [ChildActionOnly]
+        public  PartialViewResult PartialCarousel(int? id)
+        {
+            Video video =  db.Videos.Find(id);
+            IQueryable<Video> videos = db.Videos.Where(c => c.CategoryID == video.CategoryID);            
+            return PartialView("_Carousel", videos);
+        }
+
+
+
 
         // GET: Video/Create
         public ActionResult Create()

@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<webpagetest.Models.Video>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Choose a tv to watch";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -14,10 +14,30 @@
 @using (Html.BeginForm())
 {
     <p>
-        Select Department: @Html.DropDownList("SelectedCategory", "All")
-        <input type="submit" value="Filter" />
+        Select Category: @Html.DropDownList("SelectedCategory", "All")
+        <input type="submit" value="Choose" />
     </p>
 }
+
+
+<div class="row">
+@foreach (var item in Model)
+{
+    <div class="col-sm-6 col-md-3">
+        <div class="thumbnail">
+            <a href="@Url.Action("Details", "Video", new { id=item.VideoID })">
+                <img src=" @Html.DisplayFor(modelItem => item.ImageUrl)" alt=" @Html.DisplayFor(modelItem => item.Name)">
+            </a>
+                <div class="caption">
+                    <h3>@Html.DisplayFor(modelItem => item.Name)</h3>
+                </div>
+</div>
+    </div>
+}
+</div>
+
+
+
 
 <table class="table">
     <tr>

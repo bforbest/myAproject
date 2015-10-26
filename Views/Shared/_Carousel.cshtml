@@ -1,13 +1,23 @@
-﻿<div class="container">
+﻿@model IEnumerable<webpagetest.Models.Video>
+<div class="container">
 <div class="flexslider carousel">
         <ul class="slides">
-            @for (int i = 0; i < 22; i++)
+            @*@for (int i = 0; i < 22; i++)
             {
                 <li>
                     <img src="http://placehold.it/91x72/345432" />
                 </li>
+            }*@
+
+            @foreach (var item in Model)
+            {
+                <li>
+                    <a href="@Url.Action("Details", "Video", new { id=item.VideoID })">
+                        <img src=" @Html.DisplayFor(modelItem => item.ImageUrl)" alt=" @Html.DisplayFor(modelItem => item.Name)">
+                    </a>
+                </li>
             }
-            </ul>
+</ul>
     <div class="custom-navigation">
         <a href="#" class="flex-prev glyphicon glyphicon-chevron-left"></a>
         <div class="custom-controls-container"></div>
