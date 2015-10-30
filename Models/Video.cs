@@ -1,4 +1,5 @@
-﻿using System;
+﻿using myimportantproject.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -25,7 +26,7 @@ namespace webpagetest.Models
         public int CategoryID { get; set; }
         public virtual Category Category { get; set; }
 
-        public virtual ICollection<Video> Playlist { get; set; }
+        public virtual ICollection<Playlist> Playlists { get; set; }
 
     }
 }

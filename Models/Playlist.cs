@@ -13,6 +13,8 @@ namespace myimportantproject.Models
         [Required()]
         [StringLength(100, MinimumLength = 2)]
         public string Title { get; set; }
-        public virtual ICollection<Video> videos { get; set; }
+        public virtual ICollection<Video> Videos { get; set; }
+        public string ApplicationUserID { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
     }
 }

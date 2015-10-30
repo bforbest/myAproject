@@ -29,8 +29,11 @@ namespace myimportantproject.Migrations
                 context.SaveChanges();
 
             }
+            var playlists1 = new List<Playlist> { new Playlist { Title = "video" } };
+            var videos = new List<Video> { new Video {  Category=new Category {  Title = "category1"}, Discription = "discription video1",
+             ImageUrl="httpimage", IsEmbed=false, Name = "tolo", VideoUrl="httpvideourl", thumbsDown=1, thumbsUp=1, Playlists = playlists1 } };
 
-
+            
 
             //  This method will be called after migrating to the latest version.
 

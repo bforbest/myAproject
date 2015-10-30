@@ -5,12 +5,13 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using webpagetest.Models;
 using System.Collections.Generic;
-
+using System.Data.Entity.ModelConfiguration.Conventions;
 namespace myimportantproject.Models
 {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
+        public virtual ICollection<Playlist> Playlists { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -33,6 +34,7 @@ namespace myimportantproject.Models
         }
         public DbSet<Video> Videos { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Playlist> Playlists { get; set; }
 
     }
 }
