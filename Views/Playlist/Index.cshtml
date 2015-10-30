@@ -19,7 +19,12 @@
     </tr>
 
 @foreach (var item in Model.Playlists) {
-    <tr>
+    string selectedRow = "";
+    if (item.PlaylistID == ViewBag.PlayListID)
+    {
+        selectedRow = "success";
+    }
+    <tr class=@selectedRow>
         <td>
             @Html.DisplayFor(modelItem => item.ApplicationUser.Email)
         </td>
@@ -27,6 +32,14 @@
             @Html.DisplayFor(modelItem => item.Title)
         </td>
         <td>
+            @{
+                foreach (var video in item.Videos)
+                {
+                    @video.Name @:  @video.Name <br />
+                    }
+            }
+        <td>
+            @Html.ActionLink("Select", "Index", new { id = item.PlaylistID }) |
             @Html.ActionLink("Edit", "Edit", new { id=item.PlaylistID }) |
             @Html.ActionLink("Details", "Details", new { id=item.PlaylistID }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.PlaylistID })
@@ -35,3 +48,37 @@
 }
 
 </table>
+
+@if (Model.Videos != null)
+{
+    <h3>Courses Taught by Selected Instructor</h3>
+    <table class="table">
+        <tr>
+            <th></th>
+            <th>Number</th>
+            <th>Title</th>
+            <th>Department</th>
+        </tr>
+
+        @foreach (var item in Model.Videos)
+        {
+            string selectedRow = "";
+            if (item.VideoID == ViewBag.VideoID)
+            {
+                selectedRow = "success";
+            }
+            <tr class="@selectedRow">
+                <td>
+                    @item.Name
+                </td>
+                <td>
+                    @item.ImageUrl
+                </td>
+                <td>
+                    @item.Category.Title
+                </td>
+            </tr>
+        }
+
+    </table>
+}

@@ -19,12 +19,18 @@ namespace myimportantproject.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
        
         // GET: Playlist
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
             VideoPlayList videoPlayList = new VideoPlayList();
             ApplicationUser user = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId());
             videoPlayList.Playlists = db.Playlists.Where(c=>c.ApplicationUserID==user.Id).Include(p => p.ApplicationUser).ToList();
-            
+            if (id != null)
+            {
+                ViewBag.PlayListID = id.Value;
+                videoPlayList.Videos = videoPlayList.Playlists.Where(
+                    i => i.PlaylistID == id.Value).Single().Videos.ToList();
+
+            }
             return View(videoPlayList);
         }
 
@@ -46,7 +52,6 @@ namespace myimportantproject.Controllers
         // GET: Playlist/Create
         public ActionResult Create()
         {
-            ViewBag.ApplicationUserID = new SelectList(db.Users, "Id", "Email");
             return View(); 
         }
 
@@ -55,16 +60,16 @@ namespace myimportantproject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "PlaylistID,Title,ApplicationUserID")] Playlist playlist)
+        public ActionResult Create([Bind(Include = "PlaylistID,Title")] Playlist playlist)
         {
+            
             if (ModelState.IsValid)
             {
+                playlist.ApplicationUserID = User.Identity.GetUserId();
                 db.Playlists.Add(playlist);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            ViewBag.ApplicationUserID = new SelectList(db.Users, "Id", "Email", playlist.ApplicationUserID);
             return View(playlist);
         }
 
