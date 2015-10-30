@@ -49,6 +49,23 @@ namespace myimportantproject.Controllers
             return View(playlist);
         }
 
+        public ActionResult AddVideoToPlaylist(int id, int playlistID)
+        {
+            //if(id==null||playlistID==null)
+            //return View();
+            //else
+            //{
+            //    var video = db.Videos.Find(id);
+            //    db.Playlists.Find(playlistID).Videos.Add(video);
+            //    return View();
+            //}
+            var video = db.Videos.Find(id);
+            db.Playlists.Find(playlistID).Videos.Add(video);
+            db.SaveChanges();
+            return View();
+        }
+
+
         // GET: Playlist/Create
         public ActionResult Create()
         {

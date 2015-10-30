@@ -10,6 +10,8 @@ using System.Web.Mvc;
 using myimportantproject.Models;
 using webpagetest.Models;
 using webpagetest.Models.Repository;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace myimportantproject.Controllers
 {
@@ -181,5 +183,45 @@ namespace myimportantproject.Controllers
             int count = repository.thumbsDownCount(id);
             return (count);
         }
+        public void AddToFav(int? id)
+        {
+            if (id != null)
+            {
+               bool isAdd = AddToFavOrWatch((int)id, "Favorite");
+                ViewBag.FavoriteSwitch = isAdd ? "on" : "off";
+            }
+        }
+        public void AddToWatchLater(int? id)
+        {
+            if (id != null)
+            {
+                bool isAdd=AddToFavOrWatch((int)id, "WatchLater");
+                ViewBag.FavoriteSwitch = isAdd ? "glyphicon-star" : "glyphicon-star-empty";
+            }
+        }
+        private bool AddToFavOrWatch(int id, string fav)
+        {
+            ApplicationUser user = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId());
+
+                var video = db.Videos.Find(id);
+                Playlist playlist = db.Playlists.Where(c => c.ApplicationUserID == user.Id).
+                    Where(c => c.Title == fav).Single();
+            if (!playlist.Videos.Contains(video))
+            {
+                playlist.Videos.Add(video);
+                db.SaveChanges();
+                return true;
+            }
+            else
+            {
+                playlist.Videos.Remove(video);
+                db.SaveChanges();
+                return false;
+            }
+                
+
+        }
+
+
     }
 }

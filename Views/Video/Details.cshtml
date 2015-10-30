@@ -57,6 +57,25 @@
                     </div>
                     <div class="clearfix"></div>
                 </div>
+
+                @Ajax.ActionLink(".", "AddToFav",
+                            new { id = (Model.VideoID) },
+                            new AjaxOptions
+                            {
+                                HttpMethod = "POST",
+                                /* UpdateTargetId = "likeCountDiv",*/
+                                //InsertionMode = InsertionMode.Replace
+                            },
+                            new { @class = "custom-btn-progress glyphicon" })
+                @Ajax.ActionLink(".", "AddToWatchLater",
+                            new { id = (Model.VideoID) },
+                            new AjaxOptions
+                            {
+                                HttpMethod = "POST",
+                                /* UpdateTargetId = "likeCountDiv",*/
+                                //InsertionMode = InsertionMode.Replace
+                            },
+                            new { @class = "custom-btn-progress glyphicon glyphicon-heart" })
             </div>
 
             <div class="col-md-4">
