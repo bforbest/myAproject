@@ -17,11 +17,11 @@
                 <div class="well header-tron">
                     <div class="row">
                         <div class="col-md-3">
-                            <p><img src=" @Html.DisplayFor(model => model.ImageUrl)" class="img-circle image-tron" /></p>
+                            <p><img src=" @Html.DisplayFor(model => model.ImageUrl)" class="img-thumbnail image-tron" /></p>
                         </div>
                         <div class="col-md-9">
                             <h1>@Html.DisplayFor(model => model.Name)</h1>
-                            <p>@Html.DisplayFor(model => model.Discription) </p>
+                           
                         </div>
                     </div>
                 </div>
@@ -30,52 +30,56 @@
                 </div>
                 <div class="progress">
                     <div class="custom-group-progress">
-                        @Ajax.ActionLink(".", "thumbsUp",
-                            new { id = (Html.DisplayName(Model.Name)) },
-                            new AjaxOptions
-                            {
-                                HttpMethod = "POST",
-                                /* UpdateTargetId = "likeCountDiv",*/
-                                InsertionMode = InsertionMode.Replace
-                            },
-                            new { @class = "custom-btn-progress glyphicon glyphicon-heart" })
+                        @Ajax.ActionLink(" ", "thumbsUp",
+         new { id = (Html.DisplayName(Model.Name)) },
+         new AjaxOptions
+         {
+             HttpMethod = "POST",
+             /* UpdateTargetId = "likeCountDiv",*/
+             InsertionMode = InsertionMode.Replace
+         },
+         new { @class = "custom-btn-progress glyphicon glyphicon-heart" })
 
                         <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" style="width: @likeProcent()%">
                         </div>
                         <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar" style="width: @disLikeProcent()%">
                         </div>
 
-                        @Ajax.ActionLink(".", "thumbsDown",
-                        new { id = (Html.DisplayName(Model.Name)) },
-                        new AjaxOptions
-                        {
-                            HttpMethod = "POST",
-                            /* UpdateTargetId = "likeCount",*/
-                            InsertionMode = InsertionMode.Replace
-                        },
-                        new { @class = "custom-btn-progress glyphicon glyphicon-heart-empty" })
+                        @Ajax.ActionLink(" ", "thumbsDown",
+     new { id = (Html.DisplayName(Model.Name)) },
+     new AjaxOptions
+     {
+         HttpMethod = "POST",
+         /* UpdateTargetId = "likeCount",*/
+         InsertionMode = InsertionMode.Replace
+     },
+     new { @class = "custom-btn-progress glyphicon glyphicon-heart-empty" })
                     </div>
                     <div class="clearfix"></div>
                 </div>
+                @*<button id="fav" type="button" class="ttip btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Favoritmarkera"><span class="glyphicon glyphicon-heart"></span></button>*@
+                @Ajax.ActionLink(" ", "AddToFav",
+                            new { id = (Model.VideoID) },
+                            new AjaxOptions
+                            {
+                                HttpMethod = "POST",
+                                OnSuccess="favoriteToggle",
+                                //UpdateTargetId = "fav",
+                                //InsertionMode = InsertionMode.Replace
+                            },
+                            new { @class = "btn btn-default glyphicon",id="fav" }) 
 
-                @Ajax.ActionLink(".", "AddToFav",
+                
+                @Ajax.ActionLink(" ", "AddToWatchLater",
                             new { id = (Model.VideoID) },
                             new AjaxOptions
                             {
                                 HttpMethod = "POST",
+                                OnSuccess = "watchLaterToggle",
                                 /* UpdateTargetId = "likeCountDiv",*/
                                 //InsertionMode = InsertionMode.Replace
                             },
-                            new { @class = "custom-btn-progress glyphicon" })
-                @Ajax.ActionLink(".", "AddToWatchLater",
-                            new { id = (Model.VideoID) },
-                            new AjaxOptions
-                            {
-                                HttpMethod = "POST",
-                                /* UpdateTargetId = "likeCountDiv",*/
-                                //InsertionMode = InsertionMode.Replace
-                            },
-                            new { @class = "custom-btn-progress glyphicon glyphicon-heart" })
+                            new { @class = "btn btn-default glyphicon glyphicon-heart", id="watch" })
             </div>
 
             <div class="col-md-4">
@@ -115,7 +119,7 @@
         <!-- Tab panes -->
         <div class="tab-content">
             <div class="tab-pane fade active in" id="home">
-                <h2>Home Content Goes Here</h2>
+                <p>@Html.DisplayFor(model => model.Discription) </p>
 
                 <img src="http://lorempixel.com/400/400/cats/1" alt="Cats" />
             </div>
@@ -249,5 +253,83 @@
             return encodedValue;
         }
     </script>
+
+<script language="javascript" type="text/javascript">
+        function favoriteToggle(data) {
+            if (data == '0') {
+
+                $("#fav").addClass('glyphicon-star-empty');
+                $("#fav").removeClass('glyphicon-star');
+
+            }
+
+            else if (data == '1') {
+
+                $("#fav").removeClass('glyphicon-star-empty');
+                $("#fav").addClass('glyphicon-star');
+            }
+
+            else if (data == '2') {
+
+                alert('Du har nått maxgränsen för antalat filmer i din se-senarelista (50 stycken). För mer information, besök vår sida om vanliga frågor.');
+
+            }
+
+            else {
+
+                alert('Ogiltigt svar från servern: ' + data);
+
+            }
+
+        }
+        function watchLaterToggle(data) {
+            if (data == '0') {
+
+                $("#watch").addClass('glyphicon-heart-empty');
+                $("#watch").removeClass('glyphicon-heart');
+
+            }
+
+            else if (data == '1') {
+
+                $("#watch").removeClass('glyphicon-heart-empty');
+                $("#watch").addClass('glyphicon-heart');
+            }
+
+            else if (data == '2') {
+
+                alert('Du har nått maxgränsen för antalat filmer i din se-senarelista (50 stycken). För mer information, besök vår sida om vanliga frågor.');
+
+            }
+
+            else {
+
+                alert('Ogiltigt svar från servern: ' + data);
+
+            }
+
+        }
+
+    function OnFailure(xhr, status) {
+        alert('Error: '+xhr.statusText);
+    }
+
+
+    $(document).ready(function () {
+        if( @Html.Action("AddToFav",new {isOn=true })==2){
+            $("#fav").addClass('glyphicon-star');
+        } else {
+            $("#fav").addClass('glyphicon-star-empty');
+        }
+
+        if( @Html.Action("AddToWatchLater",new {isOn=true })==2){
+            $("#watch").addClass('glyphicon-heart');
+        } else {
+            $("#watch").addClass('glyphicon-heart-empty');
+        }
+
+    });
+</script>
+
 }
 }

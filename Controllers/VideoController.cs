@@ -183,23 +183,29 @@ namespace myimportantproject.Controllers
             int count = repository.thumbsDownCount(id);
             return (count);
         }
-        public void AddToFav(int? id)
+        //add a video to favorite of a user. return 1 if add 0 if remove
+        //to do return 2 if over the limit of playlist capacity
+        public int AddToFav(int? id, bool? isOn)
         {
             if (id != null)
             {
-               bool isAdd = AddToFavOrWatch((int)id, "Favorite");
-                ViewBag.FavoriteSwitch = isAdd ? "on" : "off";
+                int i =AddToFavOrWatch((int)id, "Favorite", isOn);
+                return i;
             }
+            return 2;
         }
-        public void AddToWatchLater(int? id)
+        public int AddToWatchLater(int? id, bool? isOn)
         {
             if (id != null)
             {
-                bool isAdd=AddToFavOrWatch((int)id, "WatchLater");
-                ViewBag.FavoriteSwitch = isAdd ? "glyphicon-star" : "glyphicon-star-empty";
+                int i = AddToFavOrWatch((int)id, "WatchLater", isOn);
+                return i;
             }
+            return 2;
         }
-        private bool AddToFavOrWatch(int id, string fav)
+        //Method to find a video of specific user and put it to favorite or watchlater list
+        //nullable bool to check if the video is already on favorite list of the user to switch on the favorite button
+        private int AddToFavOrWatch(int id, string fav, bool? isOnlist=false)
         {
             ApplicationUser user = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId());
 
@@ -208,15 +214,18 @@ namespace myimportantproject.Controllers
                     Where(c => c.Title == fav).Single();
             if (!playlist.Videos.Contains(video))
             {
+                //if only to check the video is on playlist
+                if (isOnlist == true) { return 3; }
                 playlist.Videos.Add(video);
                 db.SaveChanges();
-                return true;
+                return 1;
             }
             else
             {
+                if (isOnlist == true) { return 2; }
                 playlist.Videos.Remove(video);
                 db.SaveChanges();
-                return false;
+                return 0;
             }
                 
 
