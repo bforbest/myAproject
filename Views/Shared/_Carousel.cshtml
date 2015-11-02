@@ -12,8 +12,8 @@
             @foreach (var item in Model)
             {
                 <li>
-                    <a href="@Url.Action("Details", "Video", new { id=item.VideoID })">
-                        <img src=" @Html.DisplayFor(modelItem => item.ImageUrl)" alt=" @Html.DisplayFor(modelItem => item.Name)">
+                    <a  href="@Url.Action("Details", "Video", new { id=item.VideoID })">
+                        <img class="img-thumbnail" src=" @Html.DisplayFor(modelItem => item.ImageUrl)" alt=" @Html.DisplayFor(modelItem => item.Name)" style="height: 60px;">
                     </a>
                 </li>
             }

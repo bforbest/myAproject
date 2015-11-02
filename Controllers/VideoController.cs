@@ -192,7 +192,7 @@ namespace myimportantproject.Controllers
                 int i =AddToFavOrWatch((int)id, "Favorite", isOn);
                 return i;
             }
-            return 2;
+            return 9;
         }
         public int AddToWatchLater(int? id, bool? isOn)
         {
@@ -201,7 +201,7 @@ namespace myimportantproject.Controllers
                 int i = AddToFavOrWatch((int)id, "WatchLater", isOn);
                 return i;
             }
-            return 2;
+            return 9;
         }
         //Method to find a video of specific user and put it to favorite or watchlater list
         //nullable bool to check if the video is already on favorite list of the user to switch on the favorite button
