@@ -5,24 +5,35 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Choose a category or a video</h2>
 
-<p>
+@*<p>
     @Html.ActionLink("Create New", "Create")
-</p>
+</p>*@
 
 @using (Html.BeginForm())
 {
+    @Html.AntiForgeryToken()
     <p>
-        Select Category: @Html.DropDownList("SelectedCategory", "All")
-        <input type="submit" value="Choose" />
+        @*Select Category: @Html.DropDownList("SelectedCategory", "All")*@
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.DropDownList("SelectedCategory", null, "All",  htmlAttributes: new {  @onchange = "form.submit();", @class = "form -control" })
+            </div>
+        </div>
     </p>
+
+
+
+
+
+
 }
 
 
 <div class="row">
 @foreach (var item in Model)
-{
+                    {
     <div class="col-sm-6 col-md-3">
         <div class="thumbnail">
             <a href="@Url.Action("Details", "Video", new { id=item.VideoID })">
@@ -39,7 +50,7 @@
 
 
 
-<table class="table">
+@*<table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Name)
@@ -63,9 +74,9 @@
             @Html.DisplayNameFor(model => model.thumbsDown)
         </th>
         <th></th>
-    </tr>
+    </tr>*@
 
-@foreach (var item in Model) {
+@*@foreach (var item in Model) {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Name)
@@ -96,4 +107,4 @@
     </tr>
 }
 
-</table>
+</table>*@

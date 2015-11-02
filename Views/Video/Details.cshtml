@@ -20,7 +20,7 @@
                     
                 </div>
                 <div class="video-content">
-                    <iframe class="embed-responsive-item" height="400" width="100%" src="https://www.youtube.com/embed/XL9Ri8pO68w" allowfullscreen></iframe>
+                    <iframe class="embed-responsive-item" height="420" width="100%" src="@Html.DisplayFor(model => model.VideoUrl)" allowfullscreen></iframe>
                     <div class="progress">
                         <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" style="width: @likeProcent()%">
                         </div>
@@ -120,9 +120,8 @@
                             </div>
                         </div>
                     </div>
-                    <h2>Details</h2>
 
-                    <div>
+                    @*<div>
                         <h4>Video</h4>
                         <hr />
                         <dl class="dl-horizontal">
@@ -167,30 +166,20 @@
                             </dd>
 
                         </dl>
-                    </div>
+                    </div>*@
                     <p>
-                        @Html.ActionLink("Edit", "Edit", new { id = Model.VideoID }) |
-                        @Html.ActionLink("Back to List", "Index")
+                        @*@Html.ActionLink("Edit", "Edit", new { id = Model.VideoID }) |*@
+                        @Html.ActionLink("To Category", "Index")
                     </p>
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+           
             
             </div>
             <div class="col-md-4">
+                
                 <img src="http://placehold.it/350x250/000000" />
-                @Html.Partial("_Chat")
-            </div>
+                <div class="margin-tops">
+                    @Html.Partial("_Chat")
+                </div>
         </div>
     </div>
 </div>
