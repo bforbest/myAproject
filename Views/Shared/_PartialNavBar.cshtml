@@ -20,8 +20,8 @@
                     <li><a href="@Url.Action("Index","Home")">HOME <span class="sr-only">(current)</span></a></li>
                     <li>
                         <!-- Split button -->
-                        <div class="btn-group navbar-btn btn-group-lg">
-                            <a href="@Url.Action("index","video")" type="button" class="btn btn-success">WATCH NOW</a>
+                        <div class="btn-group navbar-btn btn-group">
+                            <button onclick='location.href="@Url.Action("index","video")"' type="button" class="btn btn-success">WATCH NOW</button>
                             <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="caret"></span>
                                 <span class="sr-only">Toggle Dropdown</span>

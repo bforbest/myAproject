@@ -8,9 +8,23 @@
 
     <ul class="nav navbar-nav navbar-right">
         <li>
-            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+
+            <!-- Split button -->
+            <div class="btn-group navbar-btn btn-group">
+                <button onclick='location.href="@Url.Action("index","Manage")"' type="button" class="btn btn-success">Show My Profile</button>
+                <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="caret"></span>
+                    <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+                    <li><a href="#">Watch by category</a></li>
+                    <li><a href="#">Watch popular tv</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li>@Html.ActionLink("My Playlists","index","playlist")</li>
+                </ul>
+            </div>
         </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
     </ul>
     }
 }
