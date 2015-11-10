@@ -20,7 +20,7 @@
                     
                 </div>
                 <div class="video-content">
-                    <iframe class="embed-responsive-item" height="420" width="100%" src="@Html.DisplayFor(model => model.VideoUrl)" allowfullscreen></iframe>
+                    <iframe class="embed-responsive-item" height="420" width="100%" src="@Html.DisplayFor(model => model.VideoUrl)" allowfullscreen style="border: none;margin-bottom: -5px;"></iframe>
                     <div class="progress">
                         <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" style="width: @likeProcent()%">
                         </div>
@@ -31,49 +31,41 @@
                  
                     <div class="clearfix"></div>
                 </div>
-                @*<button id="fav" type="button" class="ttip btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Favoritmarkera"><span class="glyphicon glyphicon-heart"></span></button>*@
                 @Ajax.ActionLink(" ", "AddToFav",
-                            new { id = (Model.VideoID) },
-                            new AjaxOptions
-                            {
-                                HttpMethod = "POST",
-                                OnSuccess="favoriteToggle",
-                                //UpdateTargetId = "fav",
-                                //InsertionMode = InsertionMode.Replace
-                            },
-                            new { @class = "btn btn-default glyphicon",id="fav" }) 
-
-                
+                                                  new { id = (Model.VideoID) },
+                                                  new AjaxOptions
+                                                  {
+                                                      HttpMethod = "POST",
+                                                      OnSuccess = "favoriteToggle",
+                                                  },
+                                                  new { @class = "btn btn-default glyphicon", id = "fav" })                
                 @Ajax.ActionLink(" ", "AddToWatchLater",
-                            new { id = (Model.VideoID) },
-                            new AjaxOptions
-                            {
-                                HttpMethod = "POST",
-                                OnSuccess = "watchLaterToggle",
-                                /* UpdateTargetId = "likeCountDiv",*/
-                                //InsertionMode = InsertionMode.Replace
-                            },
-                            new { @class = "btn btn-default glyphicon glyphicon-heart", id="watch" })
-                
+                                                  new { id = (Model.VideoID) },
+                                                  new AjaxOptions
+                                                  {
+                                                      HttpMethod = "POST",
+                                                      OnSuccess = "watchLaterToggle",
+                                                  },
+                                                  new { @class = "btn btn-default glyphicon glyphicon-heart", id = "watch" })
                 @Ajax.ActionLink(" ", "thumbsUp",
          new { id = (Html.DisplayName(Model.Name)) },
          new AjaxOptions
          {
              HttpMethod = "POST",
+             OnSuccess = "disableLikeDisklike",
              /* UpdateTargetId = "likeCountDiv",*/
-             InsertionMode = InsertionMode.Replace
          },
-         new { @class = "btn btn-default glyphicon glyphicon-thumbs-up" })
+         new { @class = "btn btn-default glyphicon glyphicon-thumbs-up", id = "like" })
 
                 @Ajax.ActionLink(" ", "thumbsDown",
      new { id = (Html.DisplayName(Model.Name)) },
      new AjaxOptions
      {
          HttpMethod = "POST",
+         OnSuccess = "disableLikeDisklike",
          /* UpdateTargetId = "likeCount",*/
-         InsertionMode = InsertionMode.Replace
      },
-     new { @class = "btn btn-default glyphicon glyphicon-thumbs-down" })
+     new { @class = "btn btn-default glyphicon glyphicon-thumbs-down", id = "dislike" })
 
 
                     <div class="well-sm">
@@ -120,53 +112,6 @@
                             </div>
                         </div>
                     </div>
-
-                    @*<div>
-                        <h4>Video</h4>
-                        <hr />
-                        <dl class="dl-horizontal">
-                            <dt>
-                                @Html.DisplayNameFor(model => model.Name)
-                            </dt>
-
-                            <dd>
-                                @Html.DisplayFor(model => model.Name)
-                            </dd>
-
-                            <dt>
-                                @Html.DisplayNameFor(model => model.IsEmbed)
-                            </dt>
-
-                            <dd>
-                                @Html.DisplayFor(model => model.IsEmbed)
-                            </dd>
-
-                            <dt>
-                                @Html.DisplayNameFor(model => model.VideoUrl)
-                            </dt>
-
-                            <dd>
-                                @Html.DisplayFor(model => model.VideoUrl)
-                            </dd>
-
-                            <dt>
-                                @Html.DisplayNameFor(model => model.Discription)
-                            </dt>
-
-                            <dd>
-                                @Html.DisplayFor(model => model.Discription)
-                            </dd>
-
-                            <dt>
-                                @Html.DisplayNameFor(model => model.ImageUrl)
-                            </dt>
-
-                            <dd>
-                                @Html.DisplayFor(model => model.ImageUrl)
-                            </dd>
-
-                        </dl>
-                    </div>*@
                     <p>
                         @*@Html.ActionLink("Edit", "Edit", new { id = Model.VideoID }) |*@
                         @Html.ActionLink("To Category", "Index")
@@ -222,7 +167,7 @@
                 $('#discussion').append('<li><strong>' + htmlEncode(name)
                     + '</strong>: ' + htmlEncode(message) + '</li>');
             };
-            var name = "@User.Identity.GetUserName()";
+            var name = "@User.Identity.GetUserName().Split('@').First().ToString()";
             // Get the user name and store it to prepend to messages.
             @{if (Request.IsAuthenticated) {
                 <text> $('#displayname').val(name);</text>
@@ -269,6 +214,9 @@
                 alert('Du har nått maxgränsen för antalat filmer i din se-senarelista (50 stycken). För mer information, besök vår sida om vanliga frågor.');
 
             }
+            else if(data == '4'){
+                alert('Please login to add this video to your lists');
+            }
 
             else {
 
@@ -276,6 +224,16 @@
 
             }
 
+        }
+
+        $("#message").keyup(function(event){
+            if(event.keyCode == 13){
+                $("#sendmessage").click();
+            }
+        });
+        function disableLikeDisklike(data) {
+            $("#like").addClass('disabled');
+            $("#dislike").addClass('disabled');
         }
         function watchLaterToggle(data) {
             if (data == '0') {

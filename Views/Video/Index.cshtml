@@ -5,106 +5,31 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Choose a category or a video</h2>
-
-@*<p>
-    @Html.ActionLink("Create New", "Create")
-</p>*@
+<h1>All Categories</h1>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    <p>
-        @*Select Category: @Html.DropDownList("SelectedCategory", "All")*@
         <div class="form-group">
             <div class="col-md-10">
-                @Html.DropDownList("SelectedCategory", null, "All",  htmlAttributes: new {  @onchange = "form.submit();", @class = "form -control" })
+                @Html.DropDownList("SelectedCategory", null, "All videos",  htmlAttributes: new {  @onchange = "form.submit();", @class = "form-control" })
             </div>
         </div>
-    </p>
-
-
-
-
-
-
 }
 
-
-<div class="row">
+<h2>Choose a category or a video</h2>
+<div class="row margin-tops">
 @foreach (var item in Model)
-                    {
+{
     <div class="col-sm-6 col-md-3">
         <div class="thumbnail">
             <a href="@Url.Action("Details", "Video", new { id=item.VideoID })">
-                <img src=" @Html.DisplayFor(modelItem => item.ImageUrl)" alt=" @Html.DisplayFor(modelItem => item.Name)">
+                    <img src=" @Html.DisplayFor(modelItem => item.ImageUrl)" alt=" @Html.DisplayFor(modelItem => item.Name)">
             </a>
-                <div class="caption">
-                    <h3>@Html.DisplayFor(modelItem => item.Name)</h3>
-                </div>
-</div>
+            <div class="caption">
+                   <h3>@Html.DisplayFor(modelItem => item.Name)</h3>
+            </div>
+    </div>
     </div>
 }
 </div>
-
-
-
-
-@*<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsEmbed)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.VideoUrl)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Discription)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ImageUrl)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.thumbsUp)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.thumbsDown)
-        </th>
-        <th></th>
-    </tr>*@
-
-@*@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsEmbed)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.VideoUrl)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Discription)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ImageUrl)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.thumbsUp)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.thumbsDown)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.VideoID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.VideoID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.VideoID })
-        </td>
-    </tr>
-}
-
-</table>*@

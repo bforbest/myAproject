@@ -208,29 +208,28 @@ namespace myimportantproject.Controllers
         private int AddToFavOrWatch(int id, string fav, bool? isOnlist=false)
         {
             ApplicationUser user = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(User.Identity.GetUserId());
-
+            if (user != null)
+            {
                 var video = db.Videos.Find(id);
                 Playlist playlist = db.Playlists.Where(c => c.ApplicationUserID == user.Id).
                     Where(c => c.Title == fav).Single();
-            if (!playlist.Videos.Contains(video))
-            {
-                //if only to check the video is on playlist
-                if (isOnlist == true) { return 3; }
-                playlist.Videos.Add(video);
-                db.SaveChanges();
-                return 1;
+                if (!playlist.Videos.Contains(video))
+                {
+                    //if only to check the video is on playlist
+                    if (isOnlist == true) { return 3; }
+                    playlist.Videos.Add(video);
+                    db.SaveChanges();
+                    return 1;
+                }
+                else
+                {
+                    if (isOnlist == true) { return 2; }
+                    playlist.Videos.Remove(video);
+                    db.SaveChanges();
+                    return 0;
+                }
             }
-            else
-            {
-                if (isOnlist == true) { return 2; }
-                playlist.Videos.Remove(video);
-                db.SaveChanges();
-                return 0;
-            }
-                
-
+            return 4;
         }
-
-
     }
 }

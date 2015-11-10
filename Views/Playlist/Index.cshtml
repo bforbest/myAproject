@@ -1,88 +1,46 @@
 ﻿@model myimportantproject.ViewModel.VideoPlayList
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Favorite Videos";
 }
 
-<h2>Index</h2>
+<h2>Your Favorite lists</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
 
-        <th>
-            @Html.DisplayNameFor(model => model.Playlists)
-        </th>
-        <th></th>
-    </tr>
-    <div class="btn-group" role="group" aria-label="...">
-        <button type="button" class="btn btn-default">Left</button>
-        <button type="button" class="btn btn-default">Middle</button>
-        <button type="button" class="btn btn-default">Right</button>
-    </div>
-@foreach (var item in Model.Playlists) {
-    string selectedRow = "";
-    if (item.PlaylistID == ViewBag.PlayListID)
+<div class="btn-group" role="group" aria-label="...">
+    
+
+    @foreach (var item in Model.Playlists)
     {
-        selectedRow = "success";
-    }
-    <tr class=@selectedRow>
-        <td>
-            @Html.DisplayFor(modelItem => item.ApplicationUser.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @{
-                foreach (var video in item.Videos)
-                {
-                    @video.Name @:  @video.Name <br />
-                    }
-            }
-        <td>
-            @Html.ActionLink("Select", "Index", new { id = item.PlaylistID }) |
-            @Html.ActionLink("Edit", "Edit", new { id=item.PlaylistID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.PlaylistID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.PlaylistID })
-        </td>
-    </tr>
-}
+        string selectedRow = "";
+        if (item.PlaylistID == ViewBag.PlayListID)
+        {
+            selectedRow = "success";
+        }
 
-</table>
+    <button type="button" onclick="location.href='@Url.Action("Index","Playlist", new { id = item.PlaylistID })'" class="btn btn-@selectedRow">@Html.DisplayFor(modelItem => item.Title)</button>
+    }
+</div>
+
 
 @if (Model.Videos != null)
 {
-    <h3>Courses Taught by Selected Instructor</h3>
-    <table class="table">
-        <tr>
-            <th></th>
-            <th>Number</th>
-            <th>Title</th>
-            <th>Department</th>
-        </tr>
+    <h3>Your Videos</h3>
 
+
+    <div class="row">
         @foreach (var item in Model.Videos)
         {
-            string selectedRow = "";
-            if (item.VideoID == ViewBag.VideoID)
-            {
-                selectedRow = "success";
-            }
-            <tr class="@selectedRow">
-                <td>
-                    @item.Name
-                </td>
-                <td>
-                    @item.ImageUrl
-                </td>
-                <td>
-                    @item.Category.Title
-                </td>
-            </tr>
+            <div class="col-sm-6 col-md-3">
+                <div class="thumbnail">
+                    <a href="@Url.Action("Details", "Video", new { id=item.VideoID })">
+                        <img src=" @Html.DisplayFor(modelItem => item.ImageUrl)" alt=" @Html.DisplayFor(modelItem => item.Name)">
+                    </a>
+                    <div class="caption">
+                        <h3>@Html.DisplayFor(modelItem => item.Name)</h3>
+                    </div>
+                </div>
+            </div>
         }
-
-    </table>
+    </div>
 }
