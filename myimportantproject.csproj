@@ -235,7 +235,9 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Properties\PublishProfiles\mrali.pubxml" />
     <None Include="Properties\PublishProfiles\mrali2.pubxml" />
+    <None Include="Properties\PublishProfiles\mralinewversion.pubxml" />
     <None Include="Properties\PublishProfiles\mraliserver.pubxml" />
+    <None Include="Properties\PublishProfiles\mrawebdepoly.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

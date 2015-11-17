@@ -7,118 +7,132 @@
 }
 @Html.Action("PartialCarousel", "Video")
 
-
 <div class="carouselFlexTop">  </div>
 
 <div class="videotron margin-tops">
     <div class="container">
         <div class="row">
             <div class="col-md-8">
-                <div class="well header-tron">
+                <div class="bs-callout bs-callout-info header-tron">
                     <img src=" @Html.DisplayFor(model => model.ImageUrl)" class="img-thumbnail image-tron" />
                     <h1>@Html.DisplayFor(model => model.Name)</h1>
                     
                 </div>
+                
+
                 <div class="video-content">
                     <iframe class="embed-responsive-item" height="420" width="100%" src="@Html.DisplayFor(model => model.VideoUrl)" allowfullscreen style="border: none;margin-bottom: -5px;"></iframe>
                     <div class="progress">
-                        <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" style="width: @likeProcent()%">
+                        <div class="progress-bar progress-bar-success progress-bar" role="progressbar" style="width: @likeProcent()%">
                         </div>
-                        <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar" style="width: @disLikeProcent()%">
-                        </div>
+                        
                     </div>
 
                  
                     <div class="clearfix"></div>
-                </div>
-                @Ajax.ActionLink(" ", "AddToFav",
+                </div> 
+                
+
+                    <div class="panel panel-default margin-tops">
+                        <div class="panel-heading">
+                            <div class="btn-group btn-group-justified" role="group" aria-label="...">
+
+
+                                @Ajax.ActionLink(" ", "AddToFav",
                                                   new { id = (Model.VideoID) },
                                                   new AjaxOptions
                                                   {
                                                       HttpMethod = "POST",
                                                       OnSuccess = "favoriteToggle",
                                                   },
-                                                  new { @class = "btn btn-default glyphicon", id = "fav" })                
-                @Ajax.ActionLink(" ", "AddToWatchLater",
+                                                  new { @class = "btn btn-info glyphicon", id = "fav" })
+                                @Ajax.ActionLink(" ", "AddToWatchLater",
                                                   new { id = (Model.VideoID) },
                                                   new AjaxOptions
                                                   {
                                                       HttpMethod = "POST",
                                                       OnSuccess = "watchLaterToggle",
                                                   },
-                                                  new { @class = "btn btn-default glyphicon glyphicon-heart", id = "watch" })
-                @Ajax.ActionLink(" ", "thumbsUp",
-         new { id = (Html.DisplayName(Model.Name)) },
-         new AjaxOptions
-         {
-             HttpMethod = "POST",
-             OnSuccess = "disableLikeDisklike",
-             /* UpdateTargetId = "likeCountDiv",*/
-         },
-         new { @class = "btn btn-default glyphicon glyphicon-thumbs-up", id = "like" })
+                                                  new { @class = "btn btn-primary glyphicon glyphicon-heart", id = "watch" })
 
-                @Ajax.ActionLink(" ", "thumbsDown",
-     new { id = (Html.DisplayName(Model.Name)) },
-     new AjaxOptions
-     {
-         HttpMethod = "POST",
-         OnSuccess = "disableLikeDisklike",
-         /* UpdateTargetId = "likeCount",*/
-     },
-     new { @class = "btn btn-default glyphicon glyphicon-thumbs-down", id = "dislike" })
+                                @Ajax.ActionLink(" ", "thumbsUp",
+                                                  new { id = (Html.DisplayName(Model.Name)) },
+                                                  new AjaxOptions
+                                                  {
+                                                      HttpMethod = "POST",
+                                                      OnSuccess = "disableLikeDisklike",
+                                                      /* UpdateTargetId = "likeCountDiv",*/
+                                                  },
+                                                  new { @class = "btn btn-success glyphicon glyphicon-thumbs-up", id = "like" })
 
-
-                    <div class="well-sm">
-                        <!-- Nav tabs -->
-                        <ul class="nav nav-tabs" role="tablist">
-                            <li class="active">
-                                <a href="#Info" role="tab" data-toggle="tab">
-                                    <icon class="fa fa-home"></icon> Info
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#Share" role="tab" data-toggle="tab">
-                                    <i class="fa fa-user"></i> Share
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#Report" role="tab" data-toggle="tab">
-                                    <i class="fa fa-envelope"></i> Report
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#Stats" role="tab" data-toggle="tab">
-                                    <i class="fa fa-cog"></i> Stats
-                                </a>
-                            </li>
-                        </ul>
-
-                        <!-- Tab panes -->
-                        <div class="tab-content">
-                            <div class="tab-pane fade active in" id="Info">
-                                <h2>@Html.DisplayFor(model => model.Name)</h2>
-                                <p>@Html.DisplayFor(model => model.Discription) </p>
-                            </div>
-                            <div class="tab-pane fade" id="Share">
-                                <h2>Sharing this video</h2>
-                                <p>Sharing options is going to be provided</p>
-                            </div>
-                            <div class="tab-pane fade" id="Report">
-                                <h2>Some options to report video coming soon in this place</h2>
-                            </div>
-                            <div class="tab-pane fade" id="Stats">
-                                <h2>Here a google analytics api would be integrated to show some stat</h2>
-                                <p>More about this coming soon </p>
+                                @Ajax.ActionLink(" ", "thumbsDown",
+                                                     new { id = (Html.DisplayName(Model.Name)) },
+                                                 new AjaxOptions
+                                                 {
+                                                     HttpMethod = "POST",
+                                                     OnSuccess = "disableLikeDisklike",
+                                                 },
+                                                  new { @class = "btn btn-warning glyphicon glyphicon-thumbs-down", id = "dislike" })
                             </div>
                         </div>
+                        <div class="panel-title">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li class="active">
+                                    <a href="#Info" role="tab" data-toggle="tab">
+                                         Info
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#Share" role="tab" data-toggle="tab">
+                                         Share
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#Report" role="tab" data-toggle="tab">
+                                         Report
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#Stats" role="tab" data-toggle="tab">
+                                         Stats
+                                    </a>
+                                </li>
+                            </ul>
+
+                        </div>
+                        <div class="panel-body">
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div class="tab-pane fade active in" id="Info">
+                                    <h2>@Html.DisplayFor(model => model.Name)</h2>
+                                    <p>@Html.DisplayFor(model => model.Discription) </p>
+                                </div>
+                                <div class="tab-pane fade" id="Share">
+                                    <h2>Sharing this video</h2>
+                                    <p>Sharing options is going to be provided</p>
+                                </div>
+                                <div class="tab-pane fade" id="Report">
+                                    <h2>Some options to report video coming soon in this place</h2>
+                                </div>
+                                <div class="tab-pane fade" id="Stats">
+                                    <h2>Here a google analytics api would be integrated to show some stat</h2>
+                                    <p>More about this coming soon </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="well-sm">
+
+
                     </div>
                     <p>
                         @*@Html.ActionLink("Edit", "Edit", new { id = Model.VideoID }) |*@
                         @Html.ActionLink("To Category", "Index")
                     </p>
-           
-            
-            </div>
+
+
+                </div>
             <div class="col-md-4">
                 
                 <img src="http://placehold.it/350x250/000000" />
@@ -194,7 +208,7 @@
         }
     </script>
 
-<script language="javascript" type="text/javascript">
+    <script language="javascript" type="text/javascript">
         function favoriteToggle(data) {
             if (data == '0') {
 
@@ -282,7 +296,7 @@
         }
 
     });
+
 </script>
 
-}
 }
